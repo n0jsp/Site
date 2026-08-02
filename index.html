@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0e0e10">
+    <title>SKEET.HUB | MM2 Scripts</title>
+    <style>
+        :root {
+            --bg-main: #0e0e10;
+            --bg-secondary: #141417;
+            --bg-tertiary: #1a1a1e;
+            --border-color: #252528;
+            --text-main: #c9c9ce;
+            --text-dim: #6a6a72;
+            --accent: #a020f0;
+            --accent-hover: #b340f5;
+            --danger: #ff4444;
+            --success: #44ff88;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-main);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Consolas', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: var(--text-main);
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-link {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Consolas', monospace;
+            text-decoration: none;
+            padding: 6px 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+
+        .nav-link.active, .nav-link:hover {
+            color: var(--text-main);
+            border-color: var(--accent);
+        }
+
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .hero {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent);
+            padding: 40px 30px;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-family: 'Consolas', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        /* Grid */
+        .scripts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .script-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            transition: border-color 0.2s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .script-card:hover, .script-card:active {
+            border-color: var(--accent);
+        }
+
+        .script-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .script-card:hover::after, .script-card:active::after {
+            width: 100%;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .script-title {
+            font-size: 1rem;
+            font-family: 'Consolas', monospace;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+
+        .script-status {
+            font-size: 0.65rem;
+            padding: 3px 6px;
+            background: rgba(68, 255, 136, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+            font-family: 'Consolas', monospace;
+            text-transform: uppercase;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .script-status.patched {
+            background: rgba(255, 68, 68, 0.1);
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+
+        .script-desc {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+
+        .btn-copy {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 12px;
+            cursor: pointer;
+            font-family: 'Consolas', monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .btn-copy:hover, .btn-copy:active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent);
+            width: 100%;
+            max-width: 500px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 0 20px rgba(160, 32, 240, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+        }
+
+        .modal h2 {
+            margin-bottom: 20px;
+            font-family: 'Consolas', monospace;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            font-size: 1.2rem;
+            padding-right: 20px;
+        }
+
+        .code-block {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            color: var(--accent);
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            word-wrap: break-word;
+            word-break: break-all;
+            user-select: all;
+        }
+
+        .btn-copy-code {
+            margin-top: 15px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            cursor: pointer;
+            font-family: 'Consolas', monospace;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn-copy-code:hover, .btn-copy-code:active {
+            background: var(--accent-hover);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-secondary);
+            border: 1px solid var(--success);
+            color: var(--text-main);
+            padding: 12px 25px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            text-align: center;
+            max-width: 90%;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+            color: var(--text-dim);
+            font-family: 'Consolas', monospace;
+            font-size: 0.75rem;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px;
+            }
+            .logo {
+                font-size: 1rem;
+            }
+            .nav-link {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+            .container {
+                padding: 0 15px;
+                margin: 20px auto;
+            }
+            .hero {
+                padding: 25px 20px;
+            }
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            .hero p {
+                font-size: 0.9rem;
+            }
+            .scripts-grid {
+                grid-template-columns: 1fr; /* Single column on mobile */
+                gap: 15px;
+            }
+            .script-card {
+                padding: 15px;
+            }
+            .modal {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">SKEET<span>.HUB</span></div>
+        <a href="#" class="nav-link active">Scripts</a>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h1>MM2 Script Catalog</h1>
+            <p>Premium collection of Murder Mystery 2 scripts. Optimized performance, clean code, and stable execution.</p>
+        </div>
+
+        <div class="scripts-grid" id="scriptsGrid"></div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <h2 id="modalTitle">Script Source</h2>
+            <div class="code-block" id="modalCode"></div>
+            <button class="btn-copy-code" onclick="copyModalCode()">Copy Script</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Script copied to clipboard!</div>
+
+    <footer>
+        SKEET.HUB © 2019 - 2026 | Not affiliated with Roblox Corporation
+    </footer>
+
+    <script>
+        const scripts = [
+            {
+                title: "Overdrive h Premium (Keyless)",
+                desc: "Premium features without any key system. Includes god mode, silent aim, and full ESP.",
+                status: "Working",
+                code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/n0jsp/Site/refs/heads/main/OverdriveH"))()'
+            },
+            {
+                title: "Autofarm Summer 2026",
+                desc: "Automatically farms the Summer 2026 event currency. Bypasses anti-cheat teleports.",
+                status: "Working",
+                code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/n0jsp/Site/refs/heads/main/AutoFarm"))()'
+            },
+            {
+                title: "Universal Hub",
+                desc: "All-in-one hub with player mods, visual enhancements, and server-side tools.",
+                status: "Working",
+                code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/n0jsp/Site/refs/heads/main/UniversalHub"))()'
+            },
+            {
+                title: "Weapon Spawner",
+                desc: "Spawn any weapon directly into your inventory. Bypasses server-side checks.",
+                status: "Working",
+                code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/n0jsp/Site/refs/heads/main/Loader"))()'
+            }
+        ];
+
+        const grid = document.getElementById('scriptsGrid');
+
+        function renderScripts() {
+            grid.innerHTML = '';
+            scripts.forEach(script => {
+                const statusClass = script.status === 'Working' ? '' : 'patched';
+                const card = document.createElement('div');
+                card.className = 'script-card';
+                
+                // Using data attributes to store script info for modal
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="script-title">${script.title}</div>
+                        <div class="script-status ${statusClass}">${script.status}</div>
+                    </div>
+                    <div class="script-desc">${script.desc}</div>
+                    <div class="card-footer">
+                        <button class="btn-copy" data-code="${encodeURIComponent(script.code)}" data-title="${script.title}">View Script</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Add event listeners to all buttons
+            document.querySelectorAll('.btn-copy').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const title = this.getAttribute('data-title');
+                    const code = decodeURIComponent(this.getAttribute('data-code'));
+                    openModal(title, code);
+                });
+            });
+        }
+
+        function openModal(title, code) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalCode').innerText = code;
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function copyModalCode() {
+            const code = document.getElementById('modalCode').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                showToast();
+            }).catch(err => {
+                alert('Failed to copy. Please copy manually.');
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Initialize
+        renderScripts();
+    </script>
+</body>
+</html>
