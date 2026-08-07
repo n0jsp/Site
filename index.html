@@ -3,26 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#0e0e10">
-    <title>Best MM2 Scripts</title>
+    <meta name="theme-color" content="#08080a">
+    <title>Best MM2 Scripts | Premium Hub</title>
     <script defer src="/_vercel/insights/script.js"></script>
     <!-- Подключение премиальных шрифтов -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #0e0e10;
-            --bg-secondary: #141417;
-            --bg-tertiary: #1a1a1e;
+            --bg-main: #08080a;
+            --bg-secondary: #101012;
+            --bg-tertiary: #16161a;
             --border-color: #252528;
             --text-main: #e4e4e7;
             --text-dim: #71717a;
             --accent: #a020f0;
             --accent-hover: #b340f5;
             --accent-glow: rgba(160, 32, 240, 0.25);
+            --accent-cyan: #00f0ff;
             --danger: #ff4444;
             --success: #44ff88;
+        }
+
+        /* Анимация для свойства @property (вращение рамки) */
+        @property --angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
         }
 
         * {
@@ -35,174 +43,288 @@
 
         body {
             background-color: var(--bg-main);
-            background-image: radial-gradient(circle at 50% -20%, rgba(160, 32, 240, 0.1) 0%, transparent 60%);
             color: var(--text-main);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+        /* Анимированный кибер-фон */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(160, 32, 240, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(160, 32, 240, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -2;
+            animation: gridMove 15s linear infinite;
         }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-main);
+
+        /* Свечение на фоне */
+        body::after {
+            content: '';
+            position: fixed;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 600px;
+            background: radial-gradient(circle, rgba(160, 32, 240, 0.15) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(80px);
         }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 4px;
+
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
-        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
         /* Header */
         header {
-            background: rgba(20, 20, 23, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(8, 8, 10, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
-            padding: 15px 20px;
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
         .logo {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.3rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
             font-weight: 700;
-            letter-spacing: 1px;
-            background: linear-gradient(90deg, #fff, #a020f0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent), #5b0a8c);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px var(--accent-glow);
+            position: relative;
+        }
+        
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: var(--bg-main);
+            border-radius: 6px;
         }
 
         .logo span {
-            color: var(--accent);
-            -webkit-text-fill-color: var(--accent);
-            margin-left: 2px;
+            background: linear-gradient(90deg, #fff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .status-online {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--success);
+            padding: 6px 12px;
+            background: rgba(68, 255, 136, 0.05);
+            border: 1px solid rgba(68, 255, 136, 0.2);
+            border-radius: 20px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--success);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(68, 255, 136, 0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(68, 255, 136, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(68, 255, 136, 0); }
         }
 
         .nav-link {
-            color: var(--text-dim);
+            color: var(--text-main);
             font-size: 0.8rem;
-            font-weight: 500;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
             font-family: 'JetBrains Mono', monospace;
             text-decoration: none;
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.03);
+            padding: 8px 18px;
+            background: linear-gradient(180deg, var(--bg-tertiary), var(--bg-secondary));
             border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border-radius: 8px;
             transition: all 0.2s;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.5);
         }
 
-        .nav-link.active, .nav-link:hover {
-            color: white;
-            background: var(--accent-glow);
+        .nav-link:hover {
             border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
         }
 
         /* Layout */
         .container {
             width: 100%;
-            max-width: 1100px;
-            margin: 30px auto;
+            max-width: 1200px;
+            margin: 40px auto;
             padding: 0 20px;
             flex: 1;
         }
 
         .hero {
-            background: linear-gradient(145deg, rgba(26, 26, 30, 0.8) 0%, rgba(20, 20, 23, 0.4) 100%);
+            background: linear-gradient(145deg, rgba(22, 22, 26, 0.8) 0%, rgba(16, 16, 18, 0.4) 100%);
             border: 1px solid var(--border-color);
-            border-left: 4px solid var(--accent);
-            padding: 45px 35px;
-            margin-bottom: 30px;
-            border-radius: 12px;
+            padding: 50px 40px;
+            margin-bottom: 40px;
+            border-radius: 16px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 40px rgba(160, 32, 240, 0.05);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent));
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            color: var(--accent-cyan);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .hero h1 {
-            font-size: 2.2rem;
-            margin-bottom: 12px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(90deg, #ffffff, #d1d1d6);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            background: linear-gradient(90deg, #ffffff 0%, #a1a1aa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero p {
             color: var(--text-dim);
-            font-size: 1rem;
+            font-size: 1.1rem;
             max-width: 600px;
             line-height: 1.6;
-            font-weight: 400;
         }
 
         /* Grid */
         .scripts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
         }
 
         .script-card {
-            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            background: var(--bg-secondary);
             border: 1px solid var(--border-color);
-            padding: 24px;
+            padding: 0;
             border-radius: 12px;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease;
             position: relative;
             display: flex;
             flex-direction: column;
             opacity: 0;
-            transform: translateY(15px);
-            animation: fadeIn 0.5s forwards;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s forwards;
+            overflow: hidden;
         }
 
-        .script-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px -10px var(--accent-glow);
-        }
-
-        /* Убираем старую полоску, добавляем красивое свечение снизу */
-        .script-card::after {
+        /* Анимированная неоновая рамка при наведении */
+        .script-card::before {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            inset: -1px;
+            border-radius: 12px;
+            padding: 1px;
+            background: conic-gradient(from var(--angle), transparent 0%, var(--accent) 20%, var(--accent-cyan) 40%, transparent 60%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
             opacity: 0;
             transition: opacity 0.3s;
-            border-radius: 0 0 12px 12px;
+            animation: rotate 3s linear infinite;
         }
 
-        .script-card:hover::after {
+        .script-card:hover::before {
             opacity: 1;
         }
 
+        @keyframes rotate {
+            to { --angle: 360deg; }
+        }
+
+        .card-inner {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            background: radial-gradient(circle at top right, rgba(160, 32, 240, 0.05), transparent 50%), var(--bg-secondary);
+        }
+
+        .script-card:hover {
+            transform: translateY(-5px);
+        }
+
         @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .card-header {
@@ -214,7 +336,8 @@
         }
 
         .script-title {
-            font-size: 1.1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
             font-weight: 700;
             color: var(--text-main);
             line-height: 1.3;
@@ -225,27 +348,31 @@
             padding: 4px 8px;
             background: rgba(68, 255, 136, 0.1);
             color: var(--success);
-            border: 1px solid var(--success);
+            border: 1px solid rgba(68, 255, 136, 0.3);
             border-radius: 4px;
             font-family: 'JetBrains Mono', monospace;
             text-transform: uppercase;
             white-space: nowrap;
             flex-shrink: 0;
-            box-shadow: 0 0 8px rgba(68, 255, 136, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .script-status.patched {
-            background: rgba(255, 68, 68, 0.1);
-            color: var(--danger);
-            border-color: var(--danger);
-            box-shadow: 0 0 8px rgba(255, 68, 68, 0.15);
+        .script-status::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+            display: inline-block;
         }
 
         .script-desc {
             font-size: 0.9rem;
             color: var(--text-dim);
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             flex: 1;
         }
 
@@ -258,28 +385,44 @@
         }
 
         .btn-copy {
-            background: var(--bg-main);
+            background: linear-gradient(180deg, var(--bg-tertiary), var(--bg-main));
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 10px 12px;
+            padding: 12px 16px;
             cursor: pointer;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
             text-transform: uppercase;
             transition: all 0.2s;
             width: 100%;
-            border-radius: 6px;
-            font-weight: 500;
+            border-radius: 8px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-copy svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--accent);
+            transition: transform 0.2s;
         }
 
         .btn-copy:hover {
-            background: var(--accent);
             border-color: var(--accent);
+            background: var(--accent);
             color: white;
-            box-shadow: 0 4px 15px var(--accent-glow);
+            box-shadow: 0 4px 20px var(--accent-glow);
         }
 
-        /* Modal */
+        .btn-copy:hover svg {
+            fill: white;
+            transform: translateX(2px);
+        }
+
+        /* Modal (Editor Style) */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -287,8 +430,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
             z-index: 999;
             justify-content: center;
             align-items: center;
@@ -297,65 +440,108 @@
 
         .modal-overlay.active {
             display: flex;
+            animation: fadeInBg 0.3s forwards;
+        }
+
+        @keyframes fadeInBg {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal {
             background: var(--bg-secondary);
-            border: 1px solid var(--accent);
+            border: 1px solid var(--border-color);
             width: 100%;
-            max-width: 500px;
-            padding: 30px;
+            max-width: 550px;
             position: relative;
-            box-shadow: 0 0 40px var(--accent-glow);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
             max-height: 90vh;
-            overflow-y: auto;
+            overflow: hidden;
             border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95);
+            animation: scaleIn 0.3s forwards;
+        }
+
+        @keyframes scaleIn {
+            to { transform: scale(1); }
+        }
+
+        .modal-header {
+            background: var(--bg-tertiary);
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-dots {
+            display: flex;
+            gap: 8px;
+        }
+        .modal-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .modal-title {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            margin-left: 10px;
         }
 
         .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
             background: none;
             border: none;
             color: var(--text-dim);
-            font-size: 2rem;
-            line-height: 1;
+            font-size: 1.5rem;
             cursor: pointer;
             transition: color 0.2s;
+            line-height: 1;
         }
 
-        .modal-close:hover {
-            color: var(--danger);
-        }
+        .modal-close:hover { color: var(--danger); }
 
-        .modal h2 {
-            margin-bottom: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--text-main);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-            font-size: 1.2rem;
-            padding-right: 20px;
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
         }
 
         .code-block {
-            background: #08080a;
+            background: #050507;
             border: 1px solid var(--border-color);
-            padding: 18px;
-            color: var(--accent);
+            padding: 20px;
+            color: var(--accent-cyan);
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
             word-wrap: break-word;
             word-break: break-all;
             user-select: all;
             border-radius: 8px;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+            position: relative;
+        }
+        
+        .code-block::before {
+            content: 'LUA';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            opacity: 0.5;
         }
 
         .btn-copy-code {
-            margin-top: 20px;
-            background: var(--accent);
+            margin-top: 15px;
+            background: linear-gradient(135deg, var(--accent), #7b1fa2);
             color: white;
             border: none;
             padding: 14px;
@@ -365,12 +551,16 @@
             text-transform: uppercase;
             font-weight: 700;
             transition: all 0.2s;
-            border-radius: 6px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .btn-copy-code:hover {
-            background: var(--accent-hover);
-            box-shadow: 0 4px 20px var(--accent-glow);
+            box-shadow: 0 0 25px var(--accent-glow);
+            transform: translateY(-2px);
         }
 
         /* Toast */
@@ -378,24 +568,25 @@
             position: fixed;
             bottom: 30px;
             left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: var(--bg-secondary);
+            transform: translateX(-50%) translateY(150px);
+            background: var(--bg-tertiary);
             border: 1px solid var(--success);
             color: var(--text-main);
-            padding: 14px 30px;
+            padding: 16px 30px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
             z-index: 1000;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
             max-width: 90%;
             border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(68, 255, 136, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
 
         footer {
             text-align: center;
@@ -407,58 +598,41 @@
             font-size: 0.75rem;
         }
 
-        /* Mobile Optimizations */
+        /* Mobile */
         @media (max-width: 768px) {
-            header {
-                padding: 15px;
-            }
-            .logo {
-                font-size: 1rem;
-            }
-            .nav-link {
-                font-size: 0.7rem;
-                padding: 6px 12px;
-            }
-            .container {
-                padding: 0 15px;
-                margin: 20px auto;
-            }
-            .hero {
-                padding: 30px 20px;
-                border-radius: 10px;
-            }
-            .hero h1 {
-                font-size: 1.6rem;
-            }
-            .hero p {
-                font-size: 0.9rem;
-            }
-            .scripts-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            .script-card {
-                padding: 20px;
-                border-radius: 10px;
-            }
-            .modal {
-                padding: 20px;
-                border-radius: 10px;
-            }
+            header { padding: 15px 20px; }
+            .logo { font-size: 1.1rem; }
+            .logo-icon { width: 28px; height: 28px; }
+            .status-online { display: none; }
+            .container { padding: 0 15px; margin: 20px auto; }
+            .hero { padding: 30px 20px; border-radius: 12px; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 0.9rem; }
+            .scripts-grid { grid-template-columns: 1fr; gap: 15px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">MM2<span>SCRIPTS</span></div>
-        <a href="#" class="nav-link active">Scripts</a>
+        <div class="logo">
+            <div class="logo-icon"></div>
+            MM2<span>SCRIPTS</span>
+        </div>
+        <div class="header-right">
+            <div class="status-online">
+                <div class="status-dot"></div>
+                System Online
+            </div>
+            <a href="#" class="nav-link">Scripts</a>
+        </div>
     </header>
 
     <div class="container">
         <div class="hero">
-            <h1>MM2 Script Catalog</h1>
-            <p>Premium collection of Murder Mystery 2 scripts. Optimized performance, clean code, and stable execution.</p>
+            <div class="hero-badge">v3.0 - Updated for 2026</div>
+            <h1>Next-Gen MM2<br>Execution Hub</h1>
+            <p>Premium collection of Murder Mystery 2 scripts. Optimized performance, clean code, and stable execution without keys.</p>
         </div>
 
         <div class="scripts-grid" id="scriptsGrid"></div>
@@ -466,14 +640,36 @@
 
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
-            <button class="modal-close" onclick="closeModal()">×</button>
-            <h2 id="modalTitle">Script Source</h2>
-            <div class="code-block" id="modalCode"></div>
-            <button class="btn-copy-code" onclick="copyModalCode()">Copy Script</button>
+            <div class="modal-header">
+                <div style="display: flex; align-items: center;">
+                    <div class="modal-dots">
+                        <span class="dot-red"></span>
+                        <span class="dot-yellow"></span>
+                        <span class="dot-green"></span>
+                    </div>
+                    <div class="modal-title" id="modalTitle">script.lua</div>
+                </div>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="code-block" id="modalCode"></div>
+                <button class="btn-copy-code" onclick="copyModalCode()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                        <path d="M9.5 1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h3zM5.5 5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm0 2a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z"/>
+                    </svg>
+                    Copy Script
+                </button>
+            </div>
         </div>
     </div>
 
-    <div class="toast" id="toast">Script copied to clipboard!</div>
+    <div class="toast" id="toast">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--success)" viewBox="0 0 16 16">
+            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+        </svg>
+        Script copied successfully!
+    </div>
 
     <footer>
         Top Scripts! © 2019 - 2026 | Not affiliated with Roblox Corporation
@@ -525,6 +721,7 @@
             }
         ];
 
+
         const grid = document.getElementById('scriptsGrid');
 
         function renderScripts() {
@@ -534,17 +731,25 @@
                 const card = document.createElement('div');
                 card.className = 'script-card';
                 
-                // Добавляем задержку для анимации появления (каскадом)
-                card.style.animationDelay = `${index * 0.08}s`;
+                // Каскадная анимация появления
+                card.style.animationDelay = `${index * 0.1}s`;
                 
                 card.innerHTML = `
-                    <div class="card-header">
-                        <div class="script-title">${script.title}</div>
-                        <div class="script-status ${statusClass}">${script.status}</div>
-                    </div>
-                    <div class="script-desc">${script.desc}</div>
-                    <div class="card-footer">
-                        <button class="btn-copy" data-code="${encodeURIComponent(script.code)}" data-title="${script.title}">View Script</button>
+                    <div class="card-inner">
+                        <div class="card-header">
+                            <div class="script-title">${script.title}</div>
+                            <div class="script-status ${statusClass}">${script.status}</div>
+                        </div>
+                        <div class="script-desc">${script.desc}</div>
+                        <div class="card-footer">
+                            <button class="btn-copy" data-code="${encodeURIComponent(script.code)}" data-title="${script.title}.lua">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M5 7V5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5H9v1h2.5a1.5 1.5 0 0 0 1.5-1.5V5a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 0 4 5v2h1z"/>
+                                    <path d="M3.5 8a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5v-6a.5.5 0 0 0-.5-.5h-6z"/>
+                                </svg>
+                                View Script
+                            </button>
+                        </div>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -560,7 +765,7 @@
         }
 
         function openModal(title, code) {
-            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalTitle').innerText = title; // Теперь передается как "Имя.lua"
             document.getElementById('modalCode').innerText = code;
             document.getElementById('modalOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -576,18 +781,29 @@
             navigator.clipboard.writeText(code).then(() => {
                 showToast();
             }).catch(err => {
-                alert('Failed to copy. Please copy manually.');
+                // Фолбэк для старых браузеров
+                const textarea = document.createElement('textarea');
+                textarea.value = code;
+                document.body.appendChild(textarea);
+                textarea.select();
+                try { document.execCommand('copy'); showToast(); } catch (e) {}
+                document.body.removeChild(textarea);
             });
         }
 
         function showToast() {
             const toast = document.getElementById('toast');
             toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2000);
+            setTimeout(() => toast.classList.remove('show'), 2500);
         }
 
         document.getElementById('modalOverlay').addEventListener('click', function(e) {
             if (e.target === this) closeModal();
+        });
+
+        // Закрытие по Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
         });
 
         // Initialize
